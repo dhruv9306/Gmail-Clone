@@ -1,5 +1,5 @@
-import  {Drawer, styled} from '@mui/material';
-import  SideBarContent  from './sidebar_content';
+import  {Drawer} from '@mui/material';
+import  SideBarContent  from './Sidebar_content';
 const Sidebar=({openDrawer})=>{
     return (
         <Drawer

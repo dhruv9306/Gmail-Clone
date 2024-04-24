@@ -1,7 +1,7 @@
 import {Box,Button,styled,List,ListItem} from '@mui/material'
 import{CreateOutlined} from '@mui/icons-material'
 import {SIDEBAR_DATA} from '../config/sidebar.config.js'
-
+import {ComposeMail} from '../components/ComposeMail.jsx'
 
 const ComposeButton= styled(Button)({
     background:'red',
@@ -30,6 +30,13 @@ const Container= styled(Box)({
 
 })
 
+const SideBarMenu= styled(List)({
+    background:'white',
+    marginTop:'20px',
+    borderRadius:'16px',
+    height:250
+})
+
 const SideBarContent=()=>{
     return(
         <Container>
@@ -40,7 +47,7 @@ const SideBarContent=()=>{
             </Box>
 
             
-            <List>
+            <SideBarMenu>
                 {
                     SIDEBAR_DATA.map(data=>(
                         <ListItem>
@@ -49,7 +56,9 @@ const SideBarContent=()=>{
                     ))
                 }
 
-            </List>
+            </SideBarMenu>
+            <ComposeMail/>
+            
         </Container>
 
     )
