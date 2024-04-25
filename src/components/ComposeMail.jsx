@@ -1,8 +1,9 @@
-import {Box,Dialog,Typography,styled,InputBase} from '@mui/material'
-import {Close} from '@mui/icons-material'
+import {Box,Dialog,Typography,styled,InputBase,TextField,Button} from '@mui/material'
+import {Close,DeleteOutline} from '@mui/icons-material'
 const DialogStyle={
-    height:"90%",
-    width:"80%",
+    height:"80%",
+    width:"70%",
+    maxWidth:"100%",
     boxShadow:"none",
     borderRadius:"10px"
 
@@ -34,12 +35,35 @@ const RecipientWrapper= styled(Box)({
 const TextAreaInputWrapper=styled(Box)({
     display: "flex",
     flexDirection: 'column',
+    padding:"0 10px",
+    '& > div':{
+        fontSize:14,
+        borderBottom:'1px solid lightgrey',
+        marginTop:80,
+        marginBottom:40,
+    }
 })
 
-export const ComposeMail=()=>{
+const ComposeFooter=styled(Box)({
+    display:'flex',
+    justifyContent: 'space-between',
+    padding:"10px 10px",
+    
+})
+
+const SendButton=styled(Button)({
+    background:'darkblue',
+    color:'white',
+    textTransform:'none',
+    borderRadius:'18px',
+    width:'100px',
+
+})
+
+export const ComposeMail=({openDialog})=>{
     return (
         <Dialog 
-            open={true}
+            open={openDialog}
             PaperProps={{sx: DialogStyle}}
         >
             <ComposeHeader>
@@ -54,13 +78,24 @@ export const ComposeMail=()=>{
 
 
             </RecipientWrapper>
+            <TextField 
+                multiline
+                rows={10}
+                sx={{'& .MuiOutlinedInput-notchedOutline':{
+                    border:'none',
+                }}}
+            >
+                
+                
+            </TextField>
             <TextAreaInputWrapper>
-                Text Area
                 <InputBase placeholder="Unofficial Message"/>
             </TextAreaInputWrapper>
-            <Box>
-                footer
-            </Box>
+
+            <ComposeFooter>
+                <SendButton>Send</SendButton>
+                <DeleteOutline/>
+            </ComposeFooter>
         </Dialog>
         
     )

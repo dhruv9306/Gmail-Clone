@@ -1,3 +1,4 @@
+import {useState} from "react";
 import {Box,Button,styled,List,ListItem} from '@mui/material'
 import{CreateOutlined} from '@mui/icons-material'
 import {SIDEBAR_DATA} from '../config/sidebar.config.js'
@@ -38,10 +39,16 @@ const SideBarMenu= styled(List)({
 })
 
 const SideBarContent=()=>{
+
+    const [openDialog, setOpenDialog]=useState(false);
+    const onComposeClick=()=>{
+        setOpenDialog(true);
+    }
+
     return(
         <Container>
             <Box>
-                <ComposeButton> 
+                <ComposeButton onClick={()=>onComposeClick()}> 
                     <CreateOutlined/>Compose
                 </ComposeButton>
             </Box>
@@ -57,7 +64,7 @@ const SideBarContent=()=>{
                 }
 
             </SideBarMenu>
-            <ComposeMail/>
+            <ComposeMail openDialog={openDialog}/>
             
         </Container>
 
