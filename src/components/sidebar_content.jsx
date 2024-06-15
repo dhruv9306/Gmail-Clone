@@ -1,8 +1,8 @@
-import {useState} from "react";
+import {useState} from 'react';
 import {Box,Button,styled,List,ListItem} from '@mui/material'
 import{CreateOutlined} from '@mui/icons-material'
 import {SIDEBAR_DATA} from '../config/sidebar.config.js'
-import {ComposeMail} from '../components/ComposeMail.jsx'
+import ComposeMail from "./ComposeMail.jsx";
 
 const ComposeButton= styled(Button)({
     background:'red',
@@ -64,7 +64,7 @@ const SideBarContent=()=>{
                 }
 
             </SideBarMenu>
-            <ComposeMail openDialog={openDialog}/>
+            <ComposeMail openDialog={openDialog} setOpenDialog={setOpenDialog} />
             
         </Container>
 

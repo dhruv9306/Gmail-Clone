@@ -1,5 +1,7 @@
-import {Box,Dialog,Typography,styled,InputBase,TextField,Button} from '@mui/material'
-import {Close,DeleteOutline} from '@mui/icons-material'
+
+import { useState} from 'react';
+import { Dialog, styled, Typography, Box, InputBase, TextField, Button } from '@mui/material'; 
+import { Close, DeleteOutline } from '@mui/icons-material';
 const DialogStyle={
     height:"80%",
     width:"70%",
@@ -60,7 +62,45 @@ const SendButton=styled(Button)({
 
 })
 
-export const ComposeMail=({openDialog})=>{
+
+
+const ComposeMail=({openDialog,setOpenDialog})=>{
+    const [data, setData] = useState({});
+
+    const config={
+        Host : "smtp.elasticemail.com",
+        Username : "dhruv987@yopmail.com",
+        Password : "C4DFBFC934F9147756431CA63AB4B22C66A9",
+        Port: 2525,
+    }
+
+    const onValueChange = (e) => {
+        setData({ ...data, [e.target.name]: e.target.value })
+        
+    }
+
+    const closeComposeMail = (e) =>{
+        e.preventDefault();
+        setOpenDialog(false);
+        
+    }
+
+    const sendMail=async (e)=>{
+        e.preventDefault();
+        if(window.Email){
+            window.Email.send({
+                ...config,
+                To : data.to,
+                From : 'dhruvgandhi870842@gmail.com',
+                Subject : data.subject,
+                Body : data.body
+            }).then(
+            message => alert(message)
+            );
+        }
+    
+        setOpenDialog(false);
+    }
     return (
         <Dialog 
             open={openDialog}
@@ -68,13 +108,13 @@ export const ComposeMail=({openDialog})=>{
         >
             <ComposeHeader>
                 <Typography>New Message</Typography><Typography/>
-                <Close fontSize="small"/>
+                <Close fontSize="small" onClick={(e)=>closeComposeMail(e)} />
 
 
             </ComposeHeader>
             <RecipientWrapper>
-                <InputBase placeholder="Recipients"/>
-                <InputBase placeholder="Subject"/>
+                <InputBase placeholder="Recipients" name="to" onChange={(e)=> onValueChange(e)}/>
+                <InputBase placeholder="Subject" name="subject" onChange={(e)=> onValueChange(e)}/>
 
 
             </RecipientWrapper>
@@ -84,6 +124,9 @@ export const ComposeMail=({openDialog})=>{
                 sx={{'& .MuiOutlinedInput-notchedOutline':{
                     border:'none',
                 }}}
+                name="body"
+                onChange={(e) => onValueChange(e)}
+                value={data.body}
             >
                 
                 
@@ -93,10 +136,12 @@ export const ComposeMail=({openDialog})=>{
             </TextAreaInputWrapper>
 
             <ComposeFooter>
-                <SendButton>Send</SendButton>
-                <DeleteOutline/>
+                <SendButton onClick={(e)=> sendMail(e)}>Send</SendButton>
+                <DeleteOutline onClick={()=>setOpenDialog(false) } />
             </ComposeFooter>
         </Dialog>
         
     )
 }
+
+export default ComposeMail;
